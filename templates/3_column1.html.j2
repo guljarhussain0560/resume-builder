@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    @page { size: A4; margin: 1cm; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Arial', sans-serif;
+      font-size: 9pt;
+      margin: 0;
+      color: #333;
+    }
+
+    .header {
+      text-align: center;
+      padding: 10px 20px 0;
+      border-bottom: 2px solid #1976d2;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 20pt;
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      color: #1976d2;
+      font-size: 10pt;
+      margin-top: 5px;
+      letter-spacing: 1.5px;
+    }
+
+    .summary {
+      padding: 10px 40px;
+      text-align: center;
+      font-size: 9pt;
+    }
+
+    .main {
+      display: flex;
+      gap: 20px;
+      padding: 10px 20px;
+    }
+
+    .column {
+      flex: 1;
+    }
+
+    h2 {
+      font-size: 10pt;
+      background: #e3f2fd;
+      border: 1px solid #1976d2;
+      padding: 5px 10px;
+      margin: 10px 0 6px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #0d47a1;
+    }
+
+    .job, .edu, .project, .ref {
+      margin-bottom: 10px;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .skills li {
+      margin: 3px 0;
+    }
+
+    .skill-bar {
+      height: 6px;
+      background: #bbdefb;
+      border-radius: 3px;
+      margin-top: 2px;
+
+    }
+    .footer {
+      text-align: center;
+      font-size: 8pt;
+      padding: 10px;
+      flex: 0 0 auto;
+      border-top: 1px solid #ddd;
+      color: #666;
+      flex-shrink: 0;
+      position: fixed;
+      bottom: 1cm;
+      left: 0;
+      width: 100%;
+      background: #fff;
+    }
+
+
+    a {
+      color: #1976d2;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>{{ Contact.Name | upper }}</h1>
+    <div class="subtitle">SOFTWARE ENGINEER</div>
+  </div>
+
+  <div class="summary">
+    {% for line in Summary %}
+    <p>{{ line }}</p>
+    {% endfor %}
+  </div>
+
+  <div class="main">
+
+    <!-- Left Column: Experience -->
+    <div class="column">
+      <h2>Experience</h2>
+      {% for e in Experience %}
+      <div class="job">
+        <strong>{{ e.Role }}</strong> <br>
+        {{ e.Company }} ({{ e.Duration }})
+        <ul>
+          {% for d in e.Description %}
+          <li>{{ d }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Middle Column: Education + Projects -->
+    <div class="column">
+      <h2>Projects</h2>
+      {% for proj in Projects %}
+      <div class="project">
+        <strong>{{ proj.Name }}</strong> ({{ proj.Year }})<br>
+        {{ proj.Description }}
+      </div>
+      {% endfor %}
+
+      <h2>Education</h2>
+      {% for edu in Education %}
+      <div class="edu">
+        <strong>{{ edu.Degree }}</strong><br>
+        {{ edu.Institute }} ({{ edu.Year }})
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <!-- Right Column: Skills + Certs + References -->
+    <div class="column">
+    <h2>Skills</h2>
+    <ul class="skills">
+      {% for skill in Skills %}
+      <li>{{ skill }}</li>
+      {% endfor %}
+    </ul>
+
+      <h2>Certifications</h2>
+      <ul>
+        {% for cert in Certification %}
+        <li>{{ cert }}</li>
+        {% endfor %}
+      </ul>
+
+
+    </div>
+
+  </div>
+
+  <div class="footer">
+    {{ Contact.Email }} &nbsp; | &nbsp; {{ Contact.Phone }} &nbsp; | &nbsp; <a href="{{ Contact.LinkedIn }}">LinkedIn</a>
+  </div>
+
+</body>
+</html>

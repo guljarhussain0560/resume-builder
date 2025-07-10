@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    @page {
+      size: A4;
+      margin: 1cm;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 9pt;
+      background: #ffffff;
+      height: 100%;
+    }
+
+    .page {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    .header {
+      background: #34495e;
+      color: white;
+      text-align: center;
+      padding: 16px 24px;
+    }
+
+    .header h1 {
+      font-size: 22pt;
+      margin: 0;
+    }
+
+    .header p {
+      font-size: 10pt;
+      margin-top: 6px;
+    }
+
+    .columns {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      min-height: 0;
+    }
+
+    .left {
+      width: 6cm;
+      background: #1a252f;
+      color: #ecf0f1;
+      padding: 12px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      white-space: normal;
+    }
+
+    .left h3 {
+      font-size: 10pt;
+      color: #ecf0f1;
+      margin: 10px 0 6px;
+    }
+
+    .left li {
+      font-size: 8pt;
+      line-height: 1.3;
+    }
+
+    .right {
+      flex-grow: 1;
+      background: #fefefe;
+      color: #2c3e50;
+      padding: 16px;
+      box-sizing: border-box;
+      display: column;
+      flex-direction: column;
+      overflow-wrap: break-word;
+    }
+
+    h2 {
+      font-size: 10pt;
+      color: #2c3e50;
+      border-bottom: 1px solid #ccc;
+      margin: 12px 0 6px;
+    }
+
+    ul {
+      padding-left: 14px;
+      margin: 0 0 8px;
+    }
+
+    a {
+      color: #a9cce3;
+      text-decoration: none;
+    }
+
+    p {
+      margin: 0 0 8px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <h1>{{ Contact.Name }}</h1>
+      <p>
+        {% if Contact.Email %}{{ Contact.Email }}{% endif %}
+        {% if Contact.Phone %} | {{ Contact.Phone }}{% endif %}
+        {% if Contact.LinkedIn %} | <a href="{{ Contact.LinkedIn }}">LinkedIn</a>{% endif %}
+      </p>
+    </div>
+
+    <div class="columns">
+      <div class="left">
+        {% if Skills %}
+        <h3>Skills</h3>
+        <ul class="skills-grid">
+          {% for skill in Skills %}
+            <li>{{ skill }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if Certification %}
+        <h3>Certifications</h3>
+        <ul>
+          {% for cert in Certification %}
+            <li>{{ cert }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+
+      <div class="right">
+        {% if Summary %}
+        <h2>Summary</h2>
+        {% for s in Summary %}
+          <p>{{ s }}</p>
+        {% endfor %}
+        {% endif %}
+
+        {% if Experience %}
+        <h2>Experience</h2>
+        {% for e in Experience %}
+          <p><strong>{{ e.Role }}</strong> – {{ e.Company }} ({{ e.Duration }})</p>
+          <ul>{% for d in e.Description %}<li>{{ d }}</li>{% endfor %}</ul>
+        {% endfor %}
+        {% endif %}
+
+        {% if Projects %}
+        <h2>Projects</h2>
+        {% for p in Projects %}
+          <p><strong>{{ p.Name }}</strong> ({{ p.Year }})<br>{{ p.Description }}</p>
+        {% endfor %}
+        {% endif %}
+
+        {% if Education %}
+        <h2>Education</h2>
+        {% for e in Education %}
+          <p>{{ e.Degree }} – {{ e.Institute }} ({{ e.Year }})</p>
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

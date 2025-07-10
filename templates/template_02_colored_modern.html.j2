@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @page { size: A4; margin: 1cm; }
+    body { font-family: 'Segoe UI', sans-serif; font-size: 9pt; background: #f9f9f9; color: #2c3e50; }
+    h1 { font-size: 16pt; margin-bottom: 4px; color: #1a5276; }
+    h2 { font-size: 10pt; border-bottom: 1px solid #aaa; margin: 12px 0 6px 0; color: #1a5276; }
+    p, li { margin: 2px 0; }
+    ul { padding-left: 18px; margin: 0 0 8px 0; }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px 8px; list-style: none; padding: 0; }
+    a { color: #2980b9; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <h1>{{ Contact.Name }}</h1>
+  <p>{{ Contact.Email }} | {{ Contact.Phone }} | <a href="{{ Contact.LinkedIn }}">LinkedIn</a></p>
+
+  {% if Summary %}<h2>Summary</h2>{% for line in Summary %}<p>{{ line }}</p>{% endfor %}{% endif %}
+
+  {% if Skills %}<h2>Skills</h2><ul class="skills-grid">{% for skill in Skills %}<li>{{ skill }}</li>{% endfor %}</ul>{% endif %}
+
+  {% if Experience %}<h2>Experience</h2>{% for job in Experience %}<p><strong>{{ job.Role }}</strong>, {{ job.Company }} ({{ job.Duration }})</p><ul>{% for d in job.Description %}<li>{{ d }}</li>{% endfor %}</ul>{% endfor %}{% endif %}
+
+  {% if Projects %}<h2>Projects</h2>{% for p in Projects %}<p><strong>{{ p.Name }}</strong> ({{ p.Year }})<br>{{ p.Description }}</p>{% endfor %}{% endif %}
+
+  {% if Education %}<h2>Education</h2>{% for e in Education %}<p>{{ e.Degree }} - {{ e.Institute }} ({{ e.Year }})</p>{% endfor %}{% endif %}
+
+  {% if Certification %}<h2>Certifications</h2><ul>{% for c in Certification %}<li>{{ c }}</li>{% endfor %}</ul>{% endif %}
+</body>
+</html>

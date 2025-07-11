@@ -53,3 +53,19 @@ def generate_all_templates_and_zip(data: dict) -> str:
             zipf.write(pdf, arcname=os.path.basename(pdf))
 
     return zip_path
+
+def generate_resume_from_template(data: dict) -> str:
+    """
+    Generate a single resume from the selected template.
+    Expected key in `data`: template_name
+    """
+    template_name = data.get("template_name")
+
+    if not template_name or not template_name.endswith(".html.j2"):
+        raise ValueError("❌ 'template_name' must be provided and end with '.html.j2'")
+
+    html = render_resume_html(data, template_name)
+    pdf_name = f"{uuid.uuid4().hex}.pdf"
+    pdf_path = html_to_pdf(html, pdf_name)
+    return pdf_path
+

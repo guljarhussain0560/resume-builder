@@ -33,6 +33,19 @@ def enhance_project_description_with_gemini(description: str) -> list[str]:
         return ast.literal_eval(content)
     except Exception as e:
         raise ValueError(f"Failed to parse LLM response: {e}\nRaw content: {response.content}")
+    
+# for generating enhance project description
+def enhance_Work_experience_with_gemini(description: str) -> list[str]:
+    messages = prompts.work_experience_prompt.format_messages(experience=description)
+    response = llm(messages)
+
+    # Remove markdown formatting (like ```json and ```)
+    content = response.content.strip().strip("```json").strip("```").strip()
+
+    try:
+        return ast.literal_eval(content)
+    except Exception as e:
+        raise ValueError(f"Failed to parse LLM response: {e}\nRaw content: {response.content}")
 
 
 def get_template_list() -> list:

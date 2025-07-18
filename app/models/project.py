@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
-class ProjectDescriptionRequest(BaseModel):
+class ProjectDescriptionEnhencementRequest(BaseModel):
     description: str
 
-class EnhancedDescriptionResponse(BaseModel):
-    enhanced_description: str
+class ExperienceEnhencementRequest(BaseModel):
+    description: str

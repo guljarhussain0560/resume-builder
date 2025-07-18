@@ -1,26 +1,21 @@
 from fastapi import APIRouter
 from fastapi.responses import FileResponse
-from app.models.project import ProjectDescriptionRequest, EnhancedDescriptionResponse
+from app.models.project import ProjectDescriptionEnhencementRequest, ExperienceEnhencementRequest
 from app.services import utils
 
 router = APIRouter()
 
 # to enhance project description
-@router.post("/projectdescription")
-async def enhance_project_description(request: ProjectDescriptionRequest):
-    """
-    Accepts a raw project description and returns an enhanced,
-    ATS-friendly, resume-style bullet point list.
-    """
+@router.post("/project")
+async def enhance_project_description(request: ProjectDescriptionEnhencementRequest):
     enhanced = utils.enhance_project_description_with_gemini(request.description)
-    # print(enhanced)
     return {"enhanced_description": enhanced}
 
 # to enhence experience
-@router.post("/projectdescription", response_model=EnhancedDescriptionResponse)
-async def enhance_experience_description(request: ProjectDescriptionRequest):
-    enhanced = utils.enhance_project_description_with_gemini(request.description)
-    return {"enhanced_description": enhanced}
+@router.post("/experience")
+async def enhance_experience_description(request: ExperienceEnhencementRequest):
+    enhanced = utils.enhance_Work_experience_with_gemini(request.description)
+    return {"enhanced_work_experience": enhanced}
 
 # it will generate all resume and send in zip file
 @router.post("/generate-resume-zip/")

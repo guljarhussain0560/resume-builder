@@ -2,3 +2,7 @@ fastapi
 uvicorn
 jinja2
 weasyprint
+langchain 
+langchain-google-genai 
+google-generativeai
+python-dotenv

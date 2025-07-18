@@ -1,19 +1,14 @@
-# Python
 __pycache__/
 *.pyc
 *.pyo
 
-# Virtual environment
 venv/
 
-# Environment variables
 .env
 
-# Editor settings
 .vscode/
 .idea/
 
-# Build/output/temp files
 *.log
 *.pdf
 temp/
